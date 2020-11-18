@@ -37,7 +37,7 @@ const UserSchema = new Schema({
   // get total count of comments and replies on retrieval
 
   UserSchema.virtual('totalFriends').get(function() {
-    return this.comments.length;
+    return this.friends.length;
   });
 
 
