@@ -13,7 +13,7 @@ const thoughtController = {
     getThoughtById({ params }, res) {
 
         Thoughts.findOne({ _id: params.thoughtId })
-        
+
             .then(dbUserData => {
                 if (!dbUserData) {
                     res.status(404).json({ message: 'No thought found with this id!' });
@@ -81,8 +81,8 @@ const thoughtController = {
                 }
                 return User.findOneAndUpdate(
                     { _id: params.userId },
-                    { $pull: { comments: params.thoughtId } },
-                    { new: true, runValidators: true }
+                    { $pull: { thoughts: params.thoughtId } },
+                    { new: true }
                 );
             })
             .then(dbUserData => {
@@ -93,7 +93,19 @@ const thoughtController = {
                 res.json(dbUserData);
             })
             .catch(err => res.json(err));
-    }
+    },
+    updateThought({ params, body }, res) {
+        Thoughts.findOneAndUpdate({ _id: params.thoughtId }, body, { new: true, runValidators: true })
+          .then(dbUserData => {
+            if (!dbUserData) {
+              res.status(404).json({ message: 'No thought found with this id!' });
+              return;
+    
+            }
+            res.json(dbUserData);
+          })
+          .catch(err => res.status(400).json(err));
+      },
 };
 
 module.exports = thoughtController;
