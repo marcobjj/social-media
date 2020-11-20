@@ -4,7 +4,8 @@ const UserSchema = new Schema({
     userName: {
       type: String,
       required: true,
-      trim: true
+      trim: true,
+      unique: true
     },
     email: {
       type: String,
@@ -14,8 +15,9 @@ const UserSchema = new Schema({
     friends: [
         {
             type: Schema.Types.ObjectId,
-            ref: 'User'
-          }
+            ref:'User'
+        }
+          
       ],
     
     thoughts: [
@@ -23,7 +25,7 @@ const UserSchema = new Schema({
             type: Schema.Types.ObjectId,
             ref: 'Thoughts'
           }
-      ]
+      ],
   },
   {
     toJSON: {
@@ -34,6 +36,7 @@ const UserSchema = new Schema({
   
   );
 
+//match:[/.+@.+\..+/]
   // get total count of comments and replies on retrieval
 
   UserSchema.virtual('totalFriends').get(function() {
