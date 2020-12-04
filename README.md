@@ -28,7 +28,7 @@
 ## Description
 
 
-Back-end application for a social network App  
+Back-end application for a social network App.  
 
 ## Usage
 
